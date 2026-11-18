@@ -1,0 +1,13 @@
+node_modules/
+data/database/*.db
+data/database/*.db-journal
+data/database/*.db-wal
+data/database/*.db-shm
+data/logs/*.log
+*.pid
+.env
+algorithm/phantomrider/build/
+*.exe
+*.pdb
+.DS_Store
+Thumbs.db

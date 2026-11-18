@@ -1,0 +1,24 @@
+{
+  "name": "phantomrider-pool",
+  "version": "0.1.0",
+  "description": "PhantomRider mining pool (PHR-256-YP) - simple install, Stratum, dashboard",
+  "license": "MIT",
+  "main": "lib/server.js",
+  "bin": {
+    "pool": "bin/pool.js",
+    "phantomrider-pool": "bin/pool.js"
+  },
+  "scripts": {
+    "start": "node bin/pool.js start --foreground",
+    "test": "node test/run.js",
+    "build:algo": "cmake -S algorithm/phantomrider -B algorithm/phantomrider/build -DCMAKE_BUILD_TYPE=Release && cmake --build algorithm/phantomrider/build --config Release",
+    "test:algo": "node test/algorithm.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "js-yaml": "^4.1.0"
+  }
+}

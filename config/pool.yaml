@@ -1,0 +1,69 @@
+pool:
+  name: "PhantomRider Pool"
+  enabled: true
+
+network:
+  # PhantomRider node RPC (Dash/Bitcoin-style JSON-RPC). Pastikan node sinkron dan RPC aktif.
+  rpc_url: "http://127.0.0.1:8332"
+  rpc_user: "pooluser"
+  rpc_password: "${RPC_PASSWORD}"
+  # Timeout RPC (ms)
+  timeout: 30000
+
+stratum:
+  host: "0.0.0.0"
+  port: 3333
+  tls: false
+  # tls_cert: "./config/cert.pem"
+  # tls_key: "./config/key.pem"
+
+algorithm:
+  name: "phantomrider"
+  # Path ke implementasi PHR-256-YP (tidak diubah dari source asli)
+  source: "./algorithm/phantomrider"
+  # Helper hashing native (dibangun dari source di atas). Kosong = auto-detect.
+  helper_path: ""
+  helper_threads: 2
+  verify_shares: true
+
+mining:
+  # Difficulty dalam satuan "expected hashes" (share target = 2^64 / difficulty) untuk kompatibilitas stratum umum.
+  # Sesuaikan dengan kemampuan miner dan hashrate aktual.
+  min_difficulty: 1
+  max_difficulty: 1000000
+  default_difficulty: 256
+  vardiff: true
+  target_share_time: 15
+  retarget_time: 60
+  variance_percent: 30
+  max_jump_percent: 100
+  # Batas koneksi
+  max_connections: 2000
+  max_connections_per_ip: 100
+  login_timeout_sec: 20
+
+rewards:
+  scheme: "PPLNS"
+  pool_fee: 1.0
+  # PENTING: sesuaikan dengan unit/satuan koin PhantomRider sebelum produksi.
+  minimum_payout: 0.01
+  # Window PPLNS (dalam kelipatan network difficulty / share weight). Sesuaikan.
+  pplns_window: 2.0
+
+database:
+  type: "sqlite"
+  path: "./data/database/pool.db"
+
+dashboard:
+  enabled: true
+  host: "0.0.0.0"
+  port: 8080
+  # Set password hash via `pool config` / setup; jangan simpan plaintext di repo.
+  auth:
+    enabled: false
+    user: "admin"
+    password_hash: ""
+
+logging:
+  level: "info"
+  file: "./data/logs/pool.log"

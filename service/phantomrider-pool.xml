@@ -1,0 +1,19 @@
+<!-- WinSW service definition (contoh). Sesuaikan path executable node dan direktori instalasi. -->
+<service>
+  <id>phantomrider-pool</id>
+  <name>PhantomRider Mining Pool</name>
+  <description>PhantomRider Mining Pool (PHR-256-YP)</description>
+  <executable>node</executable>
+  <arguments>"C:\phantomrider-pool\bin\pool.js" start --foreground</arguments>
+  <workingdirectory>C:\phantomrider-pool</workingdirectory>
+  <logpath>C:\phantomrider-pool\data\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+  <onfailure action="restart" delay="5 sec"/>
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="20 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <stoptimeout>15 sec</stoptimeout>
+</service>

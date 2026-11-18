@@ -1,0 +1,22 @@
+[Unit]
+Description=PhantomRider Mining Pool
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=phantomrider
+Group=phantomrider
+WorkingDirectory=/opt/phantomrider-pool
+ExecStart=/usr/bin/node /opt/phantomrider-pool/bin/pool.js start --foreground
+Restart=always
+RestartSec=5
+# Batasi restart berlebihan
+StartLimitIntervalSec=60
+StartLimitBurst=10
+# Jangan ekspos kredensial via env publik; gunakan file config/env aman
+Environment=NODE_ENV=production
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
